@@ -50,11 +50,14 @@
             </div>
             <div class="input-group f-class">
                 <div>
-                    <label for="">First Class ($150)</label>
-                    <input id="firstClassInput" class="inp-style inp-width" type="number" name="">
+                    <!-- <label for="">First Class ($150)</label> -->
+                    <label for="">First Class ($<span id="firstclass-ticket-total">150</span>)</label>
+                    <!-- <input id="firstClassInput" class="inp-style inp-width" type="number" name=""> -->
+                    <input id="firstclass-ticket-count" class="inp-style inp-width" type="number" name="" value="0">
                 </div>
                 <div class="plus-minus-btn">
-                    <p>+ -</p>
+                    <!-- <p>+ -</p> -->
+                    <p> <span onclick="handleFirstClassTicketChange(true)">+</span> <span onclick="handleFirstClassTicketChange(false)">-</span> </p>
                 </div>
             </div>
 
@@ -64,7 +67,7 @@
                     <input id="economy-ticket-count" class="inp-style inp-width" type="number" name="" value="0">
                 </div>
                 <div class="plus-minus-btn">
-                    <p> <span id="increase-economy">+</span> <span id="decrease-economy">-</span> </p>
+                    <p> <span onclick="handleEconomyTicketChange(true)">+</span> <span onclick="handleEconomyTicketChange(false)">-</span> </p>
                 </div>
             </div>
             <div class="calculations">
@@ -73,7 +76,7 @@
                         <p>Subtotal</p>
                     </div>
                     <div class="right">
-                        <p>$500</p>
+                        <p id ="subtotal">$500</p>
                     </div>
                 </div>
 
@@ -106,14 +109,34 @@
         </div>
 
         <script>
-            document.getElementById('increase-economy').addEventListener('click', function () {
-                handleTicketChange(true);
-            });
+            // document.getElementById('increase-economy').addEventListener('click', function () {
+            //     handleEconomyTicketChange(true);
+            // });
 
-            document.getElementById('decrease-economy').addEventListener('click', function () {
-                handleTicketChange(false);
-            });
-            function handleTicketChange(isIncrease){
+            // document.getElementById('decrease-economy').addEventListener('click', function () {
+            //     handleEconomyTicketChange(false);
+            // });
+            
+            
+            
+            
+            function handleFirstClassTicketChange(isIncrease){
+                const firstclassInput = document.getElementById('firstclass-ticket-count')
+                const firstclassTicketCount = parseInt(firstclassInput.value);
+                let firstclassNewTicketCount = firstclassTicketCount;
+                if(isIncrease == true){
+                    firstclassNewTicketCount = firstclassTicketCount + 1;    
+                }
+                if(isIncrease == false && firstclassTicketCount > 0) {
+                    firstclassNewTicketCount = firstclassTicketCount - 1;    
+                }
+                firstclassInput.value = firstclassNewTicketCount;
+                const firstclassTicketTotal = firstclassNewTicketCount * 150;
+                document.getElementById('firstclass-ticket-total').innerText = firstclassTicketTotal;
+            } 
+
+
+            function handleEconomyTicketChange(isIncrease){
                 const economyInput = document.getElementById('economy-ticket-count')
                 const economyTicketCount = parseInt(economyInput.value);
                 let economyNewTicketCount = economyTicketCount;
@@ -127,9 +150,6 @@
                 const economyTicketTotal = economyNewTicketCount * 100;
                 document.getElementById('economy-ticket-total').innerText = economyTicketTotal;
             } 
-
-
-
 
 
 
